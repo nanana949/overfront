@@ -324,8 +324,11 @@
   .card:active .cap .pill{ background:#fff; color:#111; }
 
   /* promo banner on home */
-  .promo{
+  .promo-row{
+    display:flex; flex-direction:column; gap:10px;
     margin:2px 16px 26px;
+  }
+  .promo{
     background:var(--black);
     color:#fff;
     border-radius:14px;
@@ -336,7 +339,7 @@
     gap:10px;
   }
   .promo .t1{ font-size:11px; letter-spacing:1.5px; color:var(--gray-300); text-transform:uppercase; }
-  .promo .t2{ font-family:'Playfair Display','Noto Serif KR',serif; font-style:italic; font-weight:700; font-size:19px; margin-top:3px; }
+  .promo .t2{ font-family:'Playfair Display','Noto Serif KR',serif; font-style:italic; font-weight:700; font-size:19px; margin-top:3px; line-height:1.25; }
   .promo .go{
     flex:none; width:38px;height:38px; border-radius:50%; background:var(--red);
     display:flex;align-items:center;justify-content:center; color:#fff; font-size:16px;
@@ -387,58 +390,6 @@
     opacity:1; transform:scale(1) translateY(0); pointer-events:auto;
   }
   .fab-back:active{ transform:scale(0.88); background:var(--red); }
-
-  /* ============ HOME FEEDBACK LINK ============ */
-  .home-feedback{
-    padding:14px 22px 0;
-    flex:none;
-  }
-  .home-feedback-btn{
-    width:100%;
-    border:2px solid var(--black);
-    border-radius:12px;
-    background:var(--white);
-    color:var(--black);
-    padding:13px 16px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    cursor:pointer;
-    box-shadow:0 8px 18px rgba(0,0,0,0.08);
-    transition:transform .15s var(--ease), background .15s var(--ease), color .15s var(--ease);
-  }
-  .home-feedback-btn:active{
-    transform:scale(0.98);
-    background:var(--black);
-    color:#fff;
-  }
-  .home-feedback-btn .hf-main{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-size:13px;
-    font-weight:800;
-    letter-spacing:0.2px;
-  }
-  .home-feedback-btn .hf-icon{
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    background:var(--red);
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    line-height:1;
-  }
-  .home-feedback-btn .hf-sub{
-    font-size:10px;
-    color:var(--gray-500);
-    font-weight:800;
-    letter-spacing:1px;
-    text-transform:uppercase;
-  }
 
   /* ============ DETAIL SHEET ============ */
   .sheet-backdrop{
@@ -661,6 +612,60 @@
   }
   .fb-btn:active{ transform:scale(0.96); }
   .fb-btn.picked{ background:var(--black); color:#fff; }
+
+  /* ============ HOME FEEDBACK LINK ============ */
+  .home-feedback{
+    padding:14px 22px 0;
+    flex:none;
+  }
+  .home-feedback-btn{
+    width:100%;
+    border:2px solid var(--black);
+    border-radius:12px;
+    background:var(--white);
+    color:var(--black);
+    padding:13px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    text-decoration:none;
+    font-family:inherit;
+    transition:transform .15s var(--ease), background .15s var(--ease), color .15s var(--ease);
+  }
+  .home-feedback-btn:active{
+    transform:scale(0.98);
+    background:var(--black);
+    color:#fff;
+  }
+  .home-feedback-btn .hf-main{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:0.2px;
+  }
+  .home-feedback-btn .hf-icon{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:var(--red);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    line-height:1;
+  }
+  .home-feedback-btn .hf-sub{
+    font-size:10px;
+    color:var(--gray-500);
+    font-weight:800;
+    letter-spacing:1px;
+    text-transform:uppercase;
+  }
 </style>
 </head>
 <body>
@@ -702,7 +707,6 @@
         <div class="drawer-divider"></div>
         <div class="drawer-item" data-target="home"><span class="dicon">☆</span>즐겨찾기</div>
         <div class="drawer-item" data-target="home"><span class="dicon">↻</span>최근 추천 기록</div>
-        <div class="drawer-item" id="drawerFeedbackBtn"><span class="dicon">✎</span>사용후기 남기기</div>
         <div class="drawer-item" data-target="home"><span class="dicon">☺</span>마이페이지</div>
       </div>
       <div class="drawer-foot">
@@ -722,10 +726,10 @@
         </div>
 
         <div class="home-feedback">
-          <button class="home-feedback-btn" id="feedbackLinkBtn" type="button">
+          <a class="home-feedback-btn" href="https://forms.gle/PPgnPNjPzRDssXXP7" target="_blank" rel="noopener noreferrer" aria-label="Google Forms에서 사용후기 남기기">
             <span class="hf-main"><span class="hf-icon">✎</span>사용후기 남기기</span>
             <span class="hf-sub">Google Forms</span>
-          </button>
+          </a>
         </div>
 
         <div class="hero-text">
@@ -733,12 +737,21 @@
           <div class="line2">Over . Beyond</div>
         </div>
 
-        <div class="promo pressable" id="promoBtn">
-          <div>
-            <div class="t1">2 min quiz</div>
-            <div class="t2">내 사이즈, AI에게 물어보기</div>
+        <div class="promo-row">
+          <div class="promo pressable" id="promoBtn">
+            <div>
+              <div class="t1">2 min quiz</div>
+              <div class="t2">내 사이즈, AI에게 물어보기</div>
+            </div>
+            <div class="go">→</div>
           </div>
-          <div class="go">→</div>
+          <div class="promo accent pressable" id="promoMaterialBtn">
+            <div>
+              <div class="t1">Weather match</div>
+              <div class="t2">오늘 날씨엔, AI 소재 추천</div>
+            </div>
+            <div class="go">→</div>
+          </div>
         </div>
 
         <div class="section-label">
@@ -1069,29 +1082,6 @@ document.getElementById('sheetCta').addEventListener('click', ()=>{
 });
 
 /* =====================================================
-   FEEDBACK LINK
-   Google Forms에서 만든 링크를 아래 따옴표 안에 넣으면 됩니다.
-   예: const FEEDBACK_FORM_URL = 'https://forms.gle/xxxxxxxxxxxx';
-===================================================== */
-const FEEDBACK_FORM_URL = 'https://forms.gle/PPgnPNjPzRDssXXP7';
-
-function openFeedbackForm(){
-  if(!FEEDBACK_FORM_URL){
-    alert('Google Forms 링크를 FEEDBACK_FORM_URL에 먼저 넣어주세요.');
-    return;
-  }
-  if(typeof gtag === 'function'){
-    gtag('event', 'feedback_form_open');
-  }
-  if(typeof plausible === 'function'){
-    plausible('Feedback Form Open');
-  }
-  window.open(FEEDBACK_FORM_URL, '_blank', 'noopener');
-}
-
-document.getElementById('feedbackLinkBtn').addEventListener('click', openFeedbackForm);
-
-/* =====================================================
    DRAWER MENU
 ===================================================== */
 const menuBtn = document.getElementById('menuBtn');
@@ -1115,11 +1105,6 @@ menuBtn.addEventListener('click', ()=>{
 drawerBackdrop.addEventListener('click', closeDrawer);
 document.querySelectorAll('.drawer-item').forEach(item=>{
   item.addEventListener('click', ()=>{
-    if(item.id === 'drawerFeedbackBtn'){
-      closeDrawer();
-      openFeedbackForm();
-      return;
-    }
     document.querySelectorAll('.drawer-item').forEach(i=>i.classList.remove('active'));
     item.classList.add('active');
     goTo(item.dataset.target);
@@ -1204,6 +1189,7 @@ navItems.forEach((btn)=>{
   btn.addEventListener('click', ()=> goTo(btn.dataset.target));
 });
 document.getElementById('promoBtn').addEventListener('click', ()=> goTo('size'));
+document.getElementById('promoMaterialBtn').addEventListener('click', ()=> goTo('material'));
 
 const backBtn = document.getElementById('backBtn');
 const exitBtn = document.getElementById('exitBtn');
@@ -1569,3 +1555,4 @@ document.getElementById('materialSubmitBtn').addEventListener('click', renderMat
 
 </body>
 </html>
+
